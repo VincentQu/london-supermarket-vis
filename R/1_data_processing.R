@@ -17,11 +17,19 @@ whichBorough <- function(lon, lat) {
   #   - length(lon) == length(lat)
   #   - is.numeric(lon) & is.numeric(lat)
   # - Modify output for coordinates that are not within London (currently NA)
+  
+  # Declaring variable that will be returned
   ans = NULL
+  # Looping over coordinate pairs (input variable)
   for(i in 1:length(lon)) {
+    # Looping over boroughs
     for(b in levels(boroughs$BOROUGH)) {
+      # Temporarily saving the current borough
       currentPolygon <- filter(boroughs, BOROUGH == b)
+      # Check if coordinate pair is in borough
       if(as.logical(point.in.polygon(lon[i], lat[i], currentPolygon$long, currentPolygon$lat))) {
+        # If so, then save the borough in the ans vector, break out of the (borough) loop,
+        # and jump to next coordinate pair
         ans[i] = b
         break
       }
@@ -43,7 +51,7 @@ rm(boroughs_geom)
 
 thames <- readShapePoly("../shp/River_Thames_Longer.shp")
 thames <- fortify(thames)
-thames <- filter(thames, long < 0.28)
+thames <- filter(thames, long < 0.28)  # "Cutting off" parts of the river in the far east (not needed for visualisation)
 
 # Reading in supermarket data
 supermarkets <- tbl_df(read.csv(file = "../Data/Supermarket_Locations.txt", header = TRUE, sep = "\t"))
