@@ -35,7 +35,6 @@ supermarkets %>%
   tally(sort = TRUE)
 
 topSupermarkets <- filter(supermarkets, Retailer %in% c("Tesco", "Sainsburys", "Marks And Spencer", "Waitrose"))
-otherSupermarkets <- filter(supermarkets, !(Retailer %in% c("Tesco", "Sainsburys", "Marks And Spencer", "Waitrose")))
 
 # Map top supermarkets -- all on one map
 ggplot() + 
@@ -146,21 +145,4 @@ ggplot(boroughs, aes(x = long, y = lat, group = group, fill = TSRatio)) +
     legend.key.size = unit(30, "points"),
     panel.border = element_rect(color = "#898581", size = 4, fill = NA),
     plot.title = element_text(family = "Roboto Slab", size=40, colour = "#696561", face = "bold", vjust = 1.2)
-  )
-
-# Map other supermarkets
-ggplot() + 
-  geom_polygon(data = boroughs, aes(x = long, y = lat, group = group), 
-               fill = "#F9F5F1", color = "#E9E5E1", size = 0.8) +
-  geom_polygon(data = thames, aes(x = long, y = lat),
-               fill = "#77A2B8", color = NA) +
-  geom_point(data = otherSupermarkets, aes(x = Lon, y = Lat, color = Retailer, shape = Retailer),
-             size = 3.5) +
-  coord_map() + 
-  #   scale_color_manual(values = c("#093D30", "#E87907", "#2E4496", "#6AA628")) +
-  theme(
-    panel.background = element_rect(fill="#E9E5E1"),
-    panel.grid = element_blank(),
-    axis.ticks = element_blank(),
-    axis.title = element_blank()
   )
