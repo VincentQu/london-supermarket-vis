@@ -5,8 +5,18 @@ library(dplyr)
 library(ggplot2)
 library(gpclib)
 library(maptools)
+library(sp)
 
+# Function that assigns a London borough to a pair of coordinates
 whichBorough <- function(lon, lat) {
+  # Requires the boroughs shape file to be loaded into R
+  # Very slow!
+  # Based on point.in.polygon() from the sp package
+  # TODO:
+  # - Add input validation
+  #   - length(lon) == length(lat)
+  #   - is.numeric(lon) & is.numeric(lat)
+  # - Modify output for coordinates that are not within London (currently NA)
   ans = NULL
   for(i in 1:length(lon)) {
     for(b in levels(boroughs$BOROUGH)) {
@@ -32,7 +42,7 @@ boroughs <- merge(boroughs_geom, boroughs@data, by.x = "id", by.y = "NUMBER")
 rm(boroughs_geom)
 
 thames <- readShapePoly("../shp/River_Thames_Longer.shp")
-thames  <- fortify(thames)
+thames <- fortify(thames)
 thames <- filter(thames, long < 0.28)
 
 # Reading in supermarket data
@@ -46,10 +56,11 @@ supermarkets <- supermarkets %>%
   rename(RetailerDetail = Fascia, Lon = LongWGS84, Lat = LatWGS84) %>%
   # Filtering supermarkets within London's boundaries
   filter(as.logical(point.in.polygon(Lon, Lat, london$long, london$lat))) %>%
-  # Converting ID into a factor
-  mutate(ID = factor(ID),
-  # Assigning the corresponding borough to each supermarket (takes a few minutes to run!)       
-         Borough = whichBorough(Lon, Lat))
+  mutate(
+    # Converting ID into a factor
+    ID = factor(ID),
+    # Assigning the corresponding borough to each supermarket (takes a few minutes to run!)       
+    Borough = whichBorough(Lon, Lat))
 
 # Saving data frames (including boroughs and Thames)
 save(supermarkets, boroughs, thames, file = "supermarket_data.rda")
