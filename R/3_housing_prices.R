@@ -21,8 +21,8 @@ ggplot(housing13, aes(x = price)) +
   geom_histogram() +
   scale_x_continuous(trans = "log10")
 
-### Mapping all houses coloured and sized based on their price
-### plus the location of London Waitrose branches
+# Mapping all houses coloured and sized based on their price
+# plus the location of London Waitrose branches
 
 ggplot() +
   # Boroughs
@@ -41,7 +41,7 @@ ggplot() +
   # Waitrose branches
   geom_point(data = filter(supermarkets, Retailer == "Waitrose"),
              aes(x = Lon, y = Lat, shape = "Waitrose"), colour = "#6AA628", size = 4) +
-  scale_shape_manual(values = 17,
+  scale_shape_manual(values = 17,  # values = 17 creates the triangle shapes
                      guide = guide_legend(title = element_blank())) +
   # Annotations
   annotate("text", x = -0.5, y = 51.29, fontface = 2, hjust = 0, color = "#696561", label = "Sources:") +
