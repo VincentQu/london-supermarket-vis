@@ -1,0 +1,16 @@
+# Folder
+Python
+
+# Apple files
+.DS_Store
+
+# R Studio files
+*.Rhistory
+*.RData
+*.Rapp.history
+*.RProj
+*.Rproj.user
+.Rproj.user
+
+# Specific files
+old_code.R
