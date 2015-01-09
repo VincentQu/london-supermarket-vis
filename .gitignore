@@ -14,3 +14,19 @@ Python
 
 # Specific files
 old_code.R
+
+GLA_Meridian_Seg03_p_polyline.dbf
+GLA_Meridian_Seg03_p_polyline.prj
+GLA_Meridian_Seg03_p_polyline.shp
+GLA_Meridian_Seg03_p_polyline.shx
+
+waitrose_interaction_p_polyline.dbf
+waitrose_interaction_p_polyline.prj
+waitrose_interaction_p_polyline.shp
+waitrose_interaction_p_polyline.shx
+
+London_A_Road.dbf
+London_A_Road.prj
+London_A_Road.qpj
+London_A_Road.shp
+London_A_Road.shx

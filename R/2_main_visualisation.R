@@ -9,24 +9,35 @@ library(grid)
 
 load("supermarket_data.rda")
 
+col_grad_1 <- colorRampPalette(c("#990000", "#FFFF99"))
+
 # Plotting location of all London supermarkets (not very insightful)
 ggplot() + 
   # Boroughs
   geom_polygon(data = boroughs, aes(x = long, y = lat, group = group), 
-               fill = "#333333", color = "#444444") +
+               fill = "#F9F5F1", color = "#E9E5E1") +
   # Thames
   geom_polygon(data = thames, aes(x = long, y = lat),
                fill = "#77A2B8", color = NA) +
   # Supermarkets
-  geom_point(data = supermarkets, aes(x = Lon, y = Lat, color = Retailer)) +
+  geom_point(data = supermarkets, aes(x = Lon, y = Lat), shape = 17, color = "#AA0000") +
+  # Annotation
+  annotate("text", x = -0.5, y = 51.282, size = 5, fontface = 2, hjust = 0, color = "#696561", label = "n = 1165 supermarket branches in London") +
   # Coordinate system
   coord_map() + 
   # Theme
   theme(
-    panel.background = element_rect(fill="#444444"),
+    panel.background = element_rect(fill="#E9E5E1"),
     panel.grid = element_blank(),
     axis.ticks = element_blank(),
-    axis.title = element_blank()
+    axis.title = element_blank(),
+    axis.text = element_blank(),
+    legend.title = element_blank(),
+    legend.text = element_text(family = "Oswald", size=16, colour = "#898581", face = "plain"),
+    legend.justification = c(1, 0),
+    legend.position = c(1, 0),
+    legend.key.size = unit(30, "points"),
+    panel.border = element_rect(color = "#898581", size = 4, fill = NA)
   )
 
 # Analysing the frequency of each retailer

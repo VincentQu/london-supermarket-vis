@@ -33,7 +33,7 @@ ggplot() +
                fill = "#77A2B8", color = NA) +
   # Housing prices
   geom_point(data = housing13, aes(x = Lon, y = Lat, colour = price, size = price), alpha = 0.7) +
-  scale_colour_gradient(low = "#FCFCBE", high = "#E08E79", trans = "log10",
+  scale_colour_gradient(low = "#FCFCBE", high = "#bb3333", trans = "log10",
                         breaks = c(1e5, 1e6, 1e7), labels = c("£100,000", "£1,000,000", "£10,000,000"),
                         guide = guide_colorbar(title = "Housing Price in £", barwidth = 2, barheight = 10,
                                                ticks = FALSE, nbin = 50, order = 1)) +
